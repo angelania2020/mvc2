@@ -1,0 +1,256 @@
+@startuml Alice and Bob
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Responce
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Responce
+@enduml
+
+
+@startuml Основной пример
+Client -> Server: Authentication Request
+Server --> Client: Authentication Response
+
+Client -> Server: Another authentication Request
+Server <-- Client: another authentication Response
+@enduml
+
+
+@startuml Объявление участников
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7 : To queue
+@enduml
+
+
+@startuml Использование символов в названии участников
+actor Bob #Red
+' Единственная разница между actor
+' и participant - это разная форма отображения
+participant Alice
+participant "У меня очень\nдлинное имя" as L #99FF99
+
+Alice->Bob: Authentication Request
+Bob->Alice: Authentication Response
+Bob->L: Log transaction
+@enduml
+
+
+@startuml
+participant Last order 30
+participant Middle order 20
+participant First order 10
+@enduml
+
+
+@startuml
+Alice -> Alice: Это сигнал к самому себе.\nТакже это является демонстрацией\nмногострочного \nтекста.
+@enduml
+
+
+@startuml
+skinparam sequenceMessageAlign right
+Bob -> Alice : Request
+Alice -> Bob : Response
+@enduml
+
+
+@startuml
+skinparam responseMessageBelowArrow true
+Bob -> Alice : дай пять евро
+Alice -> Bob : нет, не дам
+@enduml
+
+
+@startuml
+Bob ->x Alice
+Bob -> Alice
+Bob ->> Alice
+Bob -\ Alice
+Bob \\- Alice
+Bob //-- Alice
+
+Bob ->o Alice
+Bob o\\-- Alice
+
+Bob <-> Alice
+Bob <->o Alice
+@enduml
+
+
+@startuml
+Bob -[#red]> Alice : hello
+Alice -[#0000FF]->Bob : ok
+@enduml
+
+
+@startuml
+autonumber 1.1.1
+Alice -> Bob: Authentication request
+Bob --> Alice: Response
+
+autonumber inc A
+'Now we have 2.1.1
+Alice -> Bob: Another authentication request
+Bob --> Alice: Response
+
+autonumber inc B
+'Now we have 2.2.1
+Alice -> Bob: Another authentication request
+Bob --> Alice: Response
+
+autonumber inc A
+'Now we have 3.1.1
+Alice -> Bob: Another authentication request
+autonumber inc B
+'Now we have 3.2.1
+Bob --> Alice: Response
+@enduml
+
+
+@startuml Разбиение диаграмм
+
+Alice -> Bob: message 1
+Alice -> Bob: message 2
+
+newpage
+
+Alice -> Bob: message 3
+Alice -> Bob: message 4
+
+newpage A title for the\nlast page
+
+Alice -> Bob: message 5
+Alice -> Bob: message 6
+@enduml
+
+
+@startuml Группировка сообщений
+Alice -> Bob: Authentication Request
+
+alt successful case
+    
+    Bob -> Alice: Authentication Accepted
+
+else some kind of failure
+
+    Bob -> Alice: Authentication Failure
+    group My own Label
+    Alice -> Log : Log attack start
+        loop 1000 times
+            Alice -> Bob: DNS Attack
+        end
+    Alice -> Log : Log attack end
+    end
+
+else Another type of failure
+
+    Bob -> Alice: Please repeat
+
+end
+@enduml
+
+
+@startuml Примечания в сообщениях
+Alice ->Bob : привет 
+note left: это первая заметка
+
+Bob->Alice : ага
+note right: это другая заметка
+
+Bob->Bob : я размышляю над этим
+note left
+заметки
+могут занимать
+несколько строчек
+end note
+@enduml
+
+
+@startuml
+participant Alice
+participant Bob
+note left of Alice #aqua
+Будет отображено
+слева от Алисы
+end note
+
+note right of Alice: Будет отображено справа от Алисы.
+
+note over Alice: Будет отображено над Алисой.
+
+note over Alice, Bob #FFAAAA: Будет отображено\n над Алисой и Бобом.
+
+note over Bob, Alice
+А это ещё
+один пример
+длинной заметки.
+end note
+@enduml
+
+
+@startuml Разделитель
+
+== Initialization ==
+
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+== Repetition ==
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+
+@enduml
+
+
+@startuml Return
+Bob -> Alice : привет
+activate Alice
+Alice -> Alice : какое-то действие
+return пока
+@enduml
+
+
+@startuml Заголовки
+title __Simple__ communication example\non several lines
+
+Alice -> Bob: Authentication Request
+Bob -> Alice: Authentication Response
+
+@enduml
+
+
+@startuml Группировка участников
+box "Internal Service" #LightBlue
+participant Bob
+participant Alice
+end box
+participant Other
+
+Bob -> Alice : hello
+Alice -> Other : hello
+
+@enduml
+
+
+@startuml Группировка по цвету
+Alice -> Bob: Запрос авторизации
+alt#Gold #LightBlue Успешный кейс
+    Bob -> Alice: Запрос удовлетворён
+else #Pink Ошибка
+    Bob -> Alice: Запрос отклонён
+end
+@enduml

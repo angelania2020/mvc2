@@ -1,0 +1,17 @@
+@startuml
+class Controller {
+    +{static} StartSite()
+    +{static} BookList()
+    +{static} bookOne($title)
+    +{static} error404()
+}
+
+class Model {
+    +{static} getBookList()
+    +{static} getBook($title)
+}
+
+Controller::BookList -right- Model::getBookList
+Controller::bookOne -- Model::getBook
+
+@enduml
